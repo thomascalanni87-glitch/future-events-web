@@ -1,0 +1,25 @@
+# Future Events — configuration Apache (LWS)
+AddDefaultCharset UTF-8
+DirectoryIndex index.html index.php
+ErrorDocument 404 /index.html
+
+RewriteEngine On
+# HTTPS et domaine sans www
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^(.*)$ https://future-events.fr/$1 [R=301,L]
+
+# Anciennes adresses du site
+RewriteRule ^mariage/?(index\.html)?$ /#mariage [R=301,NE,L]
+RewriteRule ^entreprise/?(index\.html)?$ /#entreprise [R=301,NE,L]
+RewriteRule ^mobilier/?(index\.html)?$ /galerie/ [R=301,L]
+RewriteRule ^medias/?(index\.html)?$ /galerie/ [R=301,L]
+RewriteRule ^contact/?(index\.html)?$ /#devis [R=301,NE,L]
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/css "access plus 1 week"
+</IfModule>
