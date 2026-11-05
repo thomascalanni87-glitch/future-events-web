@@ -36,7 +36,7 @@ function mailHtml(d) {
   const ligne = (label, val) => `<tr>
 <td width="150" valign="top" style="${F}padding:10px 0;border-bottom:1px solid #E1E5E7;color:#46555C;font-size:14px">${label}</td>
 <td valign="top" style="${F}padding:10px 0;border-bottom:1px solid #E1E5E7;color:#1B2A30;font-size:16px;font-weight:bold">${val ? esc(val) : '<span style="color:#9AA6AB;font-weight:normal">non précisé</span>'}</td></tr>`;
-  const formule = (d.message.match(/formule (Essentiel|Expérience|Performance|Grand Soir|Afterwork & Entreprise)/) || [])[1];
+  const formule = d.formuleChoisie || (d.message.match(/formule (Essentiel|Expérience|Performance|Grand Soir|Afterwork & Entreprise)/) || [])[1];
   const tel = d.telephone.replace(/[^0-9+]/g, '');
   const pastille = (txt, bg, fg) => `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px"><tr>
 <td bgcolor="${bg}" style="${F}background:${bg};color:${fg};border-radius:999px;padding:7px 14px;font-size:14px;font-weight:bold">${txt}</td></tr></table>`;
@@ -61,7 +61,7 @@ ${formule ? pastille('⭐ Formule ' + esc(formule), '#FFC400', '#2B2100') : ''}
 </td></tr>
 <tr><td style="padding:22px 28px 6px">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-${ligne('E-mail', d.email)}${ligne('Téléphone', d.telephone)}${ligne("Date de l'événement", d.date)}${ligne('Lieu de réception', d.lieu)}${ligne("Nombre d'invités", d.invites)}
+${ligne('E-mail', d.email)}${ligne('Téléphone', d.telephone)}${ligne("Date de l'événement", d.date)}${ligne('Lieu de réception', d.lieu)}${ligne("Nombre d'invités", d.invites)}${ligne('Formule choisie', d.formuleChoisie)}${ligne('Options', d.options)}
 </table></td></tr>
 <tr><td style="padding:18px 28px 6px">
 <div style="${F}font-size:13px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:#46555C;margin-bottom:8px">Leur projet</div>
@@ -123,6 +123,8 @@ module.exports = async (req, res) => {
   if (m) date = `${m[3]}/${m[2]}/${m[1]}`;
   const lieu = court(f.lieu, 150);
   const invites = court(f.invites, 10);
+  const formuleChoisie = court(f.formule, 60);
+  const options = court(f.options, 400);
 
   const corps = [
     'Nouvelle demande de devis depuis future-events.fr', '',
@@ -131,7 +133,9 @@ module.exports = async (req, res) => {
     `Téléphone : ${telephone || '—'}`,
     `Date de l'événement : ${date || '—'}`,
     `Lieu de réception : ${lieu || '—'}`,
-    `Nombre d'invités : ${invites || '—'}`, '',
+    `Nombre d'invités : ${invites || '—'}`,
+    `Formule choisie : ${formuleChoisie || '—'}`,
+    `Options : ${options || '—'}`, '',
     'Message :', message,
   ].join('\n');
 
@@ -149,7 +153,7 @@ module.exports = async (req, res) => {
       replyTo: { name: nom, address: email },
       subject: `Demande de devis — ${nom}${date ? ' — ' + date : ''}`,
       text: corps,
-      html: mailHtml({ nom, email, telephone, date, lieu, invites, message }),
+      html: mailHtml({ nom, email, telephone, date, lieu, invites, message, formuleChoisie, options }),
       attachments: [{ filename: 'logo.png', content: LOGO_PNG, cid: 'logo@future-events' }],
     });
     return rediriger(res, PAGE_MERCI);
