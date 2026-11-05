@@ -270,7 +270,9 @@ html{scroll-padding-top:96px}
 .fe-heart b:empty{display:none}
 .fe-toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);opacity:0;z-index:60;background:#1B2A30;color:#fff;border-radius:999px;padding:12px 20px;font:600 15px 'Quicksand',sans-serif;box-shadow:0 8px 24px rgba(6,38,43,.3);transition:all .3s;pointer-events:none;white-space:nowrap}
 .fe-toast.fe-show{opacity:1;transform:translate(-50%,0)}
-[data-option].fe-added{background:#1B2A30 !important;color:#fff !important;border-color:#1B2A30 !important}
+button[data-option].fe-added{background:#D10072 !important;color:#fff !important;border-color:#D10072 !important}
+a.fe-btn[data-option].fe-added{background:#1B2A30 !important;color:#fff !important}
+a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
 .fe-lb{position:fixed;inset:0;z-index:70;background:rgba(6,20,24,.94);display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:16px;box-sizing:border-box}
 .fe-lb.fe-open{display:flex}
 .fe-lb img{max-width:100%;max-height:calc(100vh - 120px);border-radius:12px;object-fit:contain}
@@ -298,7 +300,13 @@ html{scroll-padding-top:96px}
     badge.textContent = list.length ? list.length : '';
     heart.title = list.length ? 'Mes envies : ' + list.join(', ') : 'Ajoutez des options à votre devis';
     document.querySelectorAll('[data-option]').forEach(function (b) {
-      if (b.tagName === 'BUTTON') b.classList.toggle('fe-added', list.indexOf(b.getAttribute('data-option')) >= 0);
+      var on = list.indexOf(b.getAttribute('data-option')) >= 0;
+      b.classList.toggle('fe-added', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (b.tagName === 'BUTTON') { b.textContent = on ? '♥' : '+'; b.title = on ? 'Retirer de mon devis' : 'Ajouter à mon devis'; return; }
+      var t = b.querySelector('.fe-more') || b;
+      t.innerHTML = on ? '<span aria-hidden="true">♥</span> Ajouté à mon devis' : '<span aria-hidden="true">♡</span> Ajouter à mon devis';
+      t.title = on ? 'Cliquez à nouveau pour retirer' : '';
     });
   }
   var toast = document.createElement('div'); toast.className = 'fe-toast'; toast.setAttribute('role', 'status'); document.body.appendChild(toast);
@@ -325,9 +333,8 @@ html{scroll-padding-top:96px}
       ev.preventDefault();
       var o = el.getAttribute('data-option');
       var i = list.indexOf(o);
-      if (i >= 0 && el.tagName === 'BUTTON') { list.splice(i, 1); say('Retiré de vos envies'); }
-      else if (i < 0) { list.push(o); say('❤ Ajouté à votre devis : ' + o); }
-      else { say('Déjà dans vos envies ❤'); }
+      if (i >= 0) { list.splice(i, 1); say('Retiré de votre devis : ' + o); }
+      else { list.push(o); say('♥ Ajouté à votre devis : ' + o); }
       save(); refresh(); compose();
       heart.classList.remove('fe-pop'); void heart.offsetWidth; heart.classList.add('fe-pop');
       return;
