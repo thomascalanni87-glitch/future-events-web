@@ -32,9 +32,9 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
 </style>
 </head>
 <body>
-<div style="font-family: 'Quicksand', sans-serif; color: #1B2A30; background: #ffffff; font-size: 17px; line-height: 1.55; overflow-x: hidden">
+<div style="font-family: 'Quicksand', sans-serif; color: #1B2A30; background: #ffffff; font-size: 17px; line-height: 1.55; overflow-x: clip">
 
-<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; max-width: 1240px; margin: 0 auto; padding: 20px 24px">
+<header class="fe-head" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; max-width: 1240px; margin: 0 auto; padding: 20px 24px">
 <a href="/" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #1B2A30">
 <span style="display: block; width: 48px; height: 48px; border-radius: 50%; overflow: hidden; flex: none"><img src="/assets/img/logo-future-events.png" alt="Logo Future Events" style="width: 48px; height: 48px; display: block"></span>
 <span style="font-size: 24px; letter-spacing: 0.5px; font-weight: 400"><span style="font-family: 'Signika', sans-serif; font-weight: 700; color: #00B6CC">F</span>uture <span style="font-family: 'Signika', sans-serif; font-weight: 700; color: #00B6CC">E</span>vents</span>
@@ -178,6 +178,37 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
       setTimeout(function () { msg.focus({ preventScroll: true }); msg.setSelectionRange(msg.value.length, msg.value.length); }, 400);
     });
   });
+})();
+</script>
+<style>
+html{scroll-padding-top:96px}
+.fe-head{position:sticky;top:0;z-index:45}
+.fe-head::before{content:"";position:absolute;top:0;bottom:0;left:-100vmax;right:-100vmax;background:#ffffff;z-index:-1;transition:box-shadow .25s}
+.fe-head.fe-scrolled::before{box-shadow:0 8px 16px -10px rgba(6,38,43,.3)}
+.fe-nav a.fe-on{color:#00707E !important;box-shadow:inset 0 -3px 0 #00B6CC}
+</style>
+<script>
+(function () {
+  var head = document.querySelector('.fe-head');
+  if (!head) return;
+  var onScroll = function () { head.classList.toggle('fe-scrolled', window.scrollY > 8); };
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  if (!window.matchMedia('(min-width: 1025px)').matches || !('IntersectionObserver' in window)) return;
+  var links = Array.prototype.slice.call(head.querySelectorAll('.fe-nav a:not(.fe-btn)'));
+  var map = [];
+  links.forEach(function (a) {
+    var h = a.getAttribute('href') || '';
+    var id = h.indexOf('#') >= 0 ? h.split('#')[1] : (h === '/galerie/' ? 'galerie' : '');
+    var sec = id && document.getElementById(id);
+    if (sec && (location.pathname === '/' || location.pathname === '/index.html')) map.push({ a: a, sec: sec });
+  });
+  if (!map.length) return;
+  var obs = new IntersectionObserver(function () {
+    var y = window.innerHeight * 0.35, cur = null;
+    map.forEach(function (m) { var r = m.sec.getBoundingClientRect(); if (r.top <= y && r.bottom > y) cur = m; });
+    map.forEach(function (m) { m.a.classList.toggle('fe-on', m === cur); });
+  }, { threshold: [0, 0.25, 0.5, 0.75, 1], rootMargin: '-20% 0px -50% 0px' });
+  map.forEach(function (m) { obs.observe(m.sec); });
 })();
 </script>
 </body>
