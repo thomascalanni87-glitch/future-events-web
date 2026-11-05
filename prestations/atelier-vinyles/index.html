@@ -29,6 +29,7 @@ summary{cursor:pointer}
 a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2px}
 @media (max-width:640px){.fe-m-hide{display:none !important}}
 [hidden]{display:none !important}
+@media (max-width:640px){.fe-gal{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:10px !important}.fe-gal figure{border-radius:14px !important}.fe-gal figcaption{left:6px !important;bottom:6px !important;right:6px !important;gap:4px !important}.fe-gal figcaption span{font-size:11px !important;padding:3px 8px !important}.fe-gal figcaption span+span{display:none}}
 </style>
 </head>
 <body>
@@ -40,8 +41,7 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
 <span style="font-size: 24px; letter-spacing: 0.5px; font-weight: 400"><span style="font-family: 'Signika', sans-serif; font-weight: 700; color: #00B6CC">F</span>uture <span style="font-family: 'Signika', sans-serif; font-weight: 700; color: #00B6CC">E</span>vents</span>
 </a>
 <nav class="fe-nav" aria-label="Navigation principale" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; font-weight: 600; font-size: 16px">
-<a class="fe-m-hide" href="/#mariage" style="padding: 12px 0">Mariage</a>
-<a class="fe-m-hide" href="/#entreprise" style="padding: 12px 0">Entreprise</a>
+<a class="fe-m-hide" href="/#mariage" style="padding: 12px 0">Nos formules</a>
 <a class="fe-m-hide" href="/#creations" style="padding: 12px 0; color: #00707E">Nos créations</a>
 <a class="fe-m-hide" href="/#lieux" style="padding: 12px 0">Lieux</a>
 <a class="fe-m-hide" href="/galerie/" style="padding: 12px 0">Galerie</a>
@@ -143,7 +143,6 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
 <a href="https://www.instagram.com/thomas_futureevents/" style="padding: 12px 0">Instagram</a>
 <a href="https://www.facebook.com/future.events-fr" style="padding: 12px 0">Facebook</a>
 <a href="https://www.youtube.com/channel/UCPeseptp86hgipPh1_BLF3g" style="padding: 12px 0">YouTube</a>
-<a href="/tarifs/" style="padding: 12px 0">Tarifs</a>
 <a href="/mentions-legales/" style="padding: 12px 0">Mentions légales</a>
 </div>
 </div>
@@ -208,6 +207,15 @@ html{scroll-padding-top:96px}
 @keyframes fePop{40%{transform:scale(1.25)}100%{transform:scale(1)}}
 .fe-heart b{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;border-radius:999px;background:#D10072;color:#fff;font:700 13px/22px 'Quicksand',sans-serif;text-align:center;padding:0 5px;box-sizing:border-box}
 .fe-heart b:empty{display:none}
+.fe-heart.fe-empty{display:none !important}
+.fe-burger{display:none;width:46px;height:46px;border-radius:50%;border:2px solid #E1E5E7;background:#fff;color:#1B2A30;cursor:pointer;padding:0;align-items:center;justify-content:center}
+.fe-menu{display:none}
+@media (max-width:640px){
+  .fe-burger{display:inline-flex}
+  .fe-menu.fe-open{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:100%;background:#fff;padding:8px 24px 20px;box-shadow:0 14px 24px -12px rgba(6,38,43,.35);z-index:46}
+  .fe-menu a{padding:14px 0;border-bottom:1px solid #E1E5E7;font-weight:700;color:#1B2A30;text-decoration:none;font-size:18px}
+  .fe-menu a:last-child{border-bottom:0}
+}
 .fe-toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);opacity:0;z-index:60;background:#1B2A30;color:#fff;border-radius:999px;padding:12px 20px;font:600 15px 'Quicksand',sans-serif;box-shadow:0 8px 24px rgba(6,38,43,.3);transition:all .3s;pointer-events:none;white-space:nowrap}
 .fe-toast.fe-show{opacity:1;transform:translate(-50%,0)}
 button[data-option].fe-added{background:#D10072 !important;color:#fff !important;border-color:#D10072 !important}
@@ -236,8 +244,30 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
   heart.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg><b></b>';
   if (nav) { var btn = nav.querySelector('.fe-btn'); nav.insertBefore(heart, btn || null); }
   var badge = heart.querySelector('b');
+
+  // Menu dépliable sur mobile
+  var head = document.querySelector('.fe-head');
+  if (nav && head) {
+    var burger = document.createElement('button');
+    burger.type = 'button'; burger.className = 'fe-burger';
+    burger.setAttribute('aria-label', 'Ouvrir le menu'); burger.setAttribute('aria-expanded', 'false');
+    burger.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+    nav.appendChild(burger);
+    var menu = document.createElement('div'); menu.className = 'fe-menu'; menu.id = 'fe-menu';
+    burger.setAttribute('aria-controls', 'fe-menu');
+    nav.querySelectorAll('a.fe-m-hide').forEach(function (a) { var c = a.cloneNode(true); c.className = ''; c.removeAttribute('style'); menu.appendChild(c); });
+    var dv = document.createElement('a'); dv.href = '/#devis'; dv.textContent = 'Demander un devis'; dv.style.color = '#00707E'; menu.appendChild(dv);
+    head.appendChild(menu);
+    burger.addEventListener('click', function () {
+      var open = menu.classList.toggle('fe-open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) { menu.classList.remove('fe-open'); burger.setAttribute('aria-expanded', 'false'); } });
+  }
   function refresh() {
     badge.textContent = list.length ? list.length : '';
+    heart.classList.toggle('fe-empty', !list.length);
     heart.title = list.length ? 'Mes envies : ' + list.join(', ') : 'Ajoutez des options à votre devis';
     document.querySelectorAll('[data-option]').forEach(function (b) {
       var on = list.indexOf(b.getAttribute('data-option')) >= 0;

@@ -29,6 +29,7 @@ summary{cursor:pointer}
 a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2px}
 @media (max-width:640px){.fe-m-hide{display:none !important}}
 [hidden]{display:none !important}
+@media (max-width:640px){.fe-gal{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:10px !important}.fe-gal figure{border-radius:14px !important}.fe-gal figcaption{left:6px !important;bottom:6px !important;right:6px !important;gap:4px !important}.fe-gal figcaption span{font-size:11px !important;padding:3px 8px !important}.fe-gal figcaption span+span{display:none}}
 </style>
 </head>
 <body>
@@ -40,8 +41,7 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
 <span style="font-size: 24px; letter-spacing: 0.5px; font-weight: 400"><span style="font-family: 'Signika', sans-serif; font-weight: 700; color: #00B6CC">F</span>uture <span style="font-family: 'Signika', sans-serif; font-weight: 700; color: #00B6CC">E</span>vents</span>
 </a>
 <nav class="fe-nav" aria-label="Navigation principale" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; font-weight: 600; font-size: 16px">
-<a class="fe-m-hide" href="/#mariage" style="padding: 12px 0">Mariage</a>
-<a class="fe-m-hide" href="/#entreprise" style="padding: 12px 0">Entreprise</a>
+<a class="fe-m-hide" href="/#mariage" style="padding: 12px 0">Nos formules</a>
 <a class="fe-m-hide" href="/#creations" style="padding: 12px 0; color: #00707E">Nos créations</a>
 <a class="fe-m-hide" href="/#lieux" style="padding: 12px 0">Lieux</a>
 <a class="fe-m-hide" href="/galerie/" style="padding: 12px 0">Galerie</a>
@@ -59,18 +59,14 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
 <span style="align-self: flex-start; background: #FFC400; color: #2B2100; border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 700">Création Future Events</span>
 <h1 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: clamp(38px, 5vw, 66px); line-height: 1.03; letter-spacing: -1px">Le photobooth rétro 1920, <span style="color: #00B6CC">un look d'époque.</span></h1>
 <p style="margin: 0; font-size: 20px; font-weight: 500; color: #46555C; max-width: 540px">Un authentique appareil photo centenaire, une boîte aux lettres en bronze qui délivre le tirage : vos invités font la queue pour un souvenir, et la même équipe s'occupe de tout.</p>
-<p style="margin: 0; font-size: 18px; font-weight: 600; color: #1B2A30; max-width: 540px">Pensé comme un objet de décor, il s'intègre dans la scénographie de votre lieu au lieu de s'y imposer.</p>
+<p style="margin: 0; font-size: 18px; font-weight: 600; color: #1B2A30; max-width: 540px">Pensé comme un objet de décor, il s'intègre dans la scénographie de votre lieu au lieu de s'y imposer. Il fonctionne sur batterie : il tourne dès le vin d'honneur, puis on le déplace en salle.</p>
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px">
 <a class="fe-btn" href="#devis" data-option="Photobooth rétro 1920" style="background: #00B6CC; color: #06262B; padding: 16px 28px; border-radius: 999px; font-weight: 700; font-size: 18px; text-decoration: none">Ajouter à mon devis</a>
-<span style="font-weight: 600; color: #46555C; display: flex; flex-direction: column; line-height: 1.3"><span>à partir de <strong style="font-family: 'Signika', sans-serif; font-size: 28px; color: #1B2A30">440 €</strong></span><span style="font-size: 15px">400 tirages inclus</span></span>
+<span style="font-weight: 600; color: #46555C; display: flex; flex-direction: column; line-height: 1.3"><span>à partir de <strong style="font-family: 'Signika', sans-serif; font-size: 28px; color: #1B2A30">550 €</strong></span><span style="font-size: 15px">400 tirages inclus</span></span>
 </div>
 </div>
 <div style="flex: 1 1 520px; min-width: 0; position: relative; border-radius: 32px; overflow: hidden; aspect-ratio: 16 / 10; background: #1B2A30">
 <img loading="lazy" src="/assets/img/photobooth-retro-1920-mariage.jpg" alt="Invités assis face au photobooth rétro en extérieur" style="width: 100%; height: 100%; object-fit: cover; display: block">
-<div style="position: absolute; left: 20px; bottom: 20px; display: flex; align-items: center; gap: 12px; background: #ffffff; border-radius: 999px; padding: 8px 18px 8px 8px; font-size: 14px; font-weight: 700">
-<span style="width: 40px; height: 40px; border-radius: 50%; background: #00B6CC; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="#06262B" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></span>
-<span>Emplacement vidéo : le Retrobooth en action</span>
-</div>
 </div>
 </section>
 
@@ -79,18 +75,31 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
 <h2 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.08; max-width: 720px">Un objet de décoration qui fait aussi des photos</h2>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px">
 <article class="fe-card" style="background: #ffffff; border-radius: 24px; overflow: hidden; display: flex; flex-direction: column">
-<span style="display: block; overflow: hidden; aspect-ratio: 4 / 3"><img loading="lazy" src="/assets/img/photobooth-retro-decor-vintage.jpg" alt="Photobooth rétro installé dans un jardin avec son décor d'objets anciens" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s"></span>
-<div style="padding: 24px 24px 28px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Signika', sans-serif; font-size: 24px; font-weight: 600">Partout, sans fil</h3><p style="margin: 0; color: #46555C; font-weight: 500">Au jardin pendant le cocktail, puis en salle : il se déplace avec la fête.</p></div>
+<span style="display: block; overflow: hidden; aspect-ratio: 4 / 3"><img loading="lazy" src="/assets/img/amphitryon-photobooth-jardin.jpg" alt="Invitées riant devant le photobooth rétro dans le jardin d'un château" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s"></span>
+<div style="padding: 24px 24px 28px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Signika', sans-serif; font-size: 24px; font-weight: 600">Partout sans fil, d'un bout à l'autre de la journée</h3><p style="margin: 0; color: #46555C; font-weight: 500">Sur batterie, il démarre au vin d'honneur dans le jardin, puis nous le déplaçons en salle pour la soirée.</p></div>
 </article>
 <article class="fe-card" style="background: #ffffff; border-radius: 24px; overflow: hidden; display: flex; flex-direction: column">
 <span style="display: block; overflow: hidden; aspect-ratio: 4 / 3"><img loading="lazy" src="/assets/img/photobooth-retro-photo-de-groupe.jpg" alt="Groupe d'invités posant devant le décor du photobooth" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s"></span>
-<div style="padding: 24px 24px 28px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Signika', sans-serif; font-size: 24px; font-weight: 600">Jusqu'à 12 sur la photo</h3><p style="margin: 0; color: #46555C; font-weight: 500">En salle, le décor épuré accueille les grandes tablées et les bandes de copains.</p></div>
+<div style="padding: 24px 24px 28px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Signika', sans-serif; font-size: 24px; font-weight: 600">Une mise en page personnalisable</h3><p style="margin: 0; color: #46555C; font-weight: 500">Logos, visuel de votre faire-part, filtres : chaque tirage porte les couleurs de votre évènement.</p></div>
 </article>
 <article class="fe-card" style="background: #ffffff; border-radius: 24px; overflow: hidden; display: flex; flex-direction: column">
-<span style="display: block; overflow: hidden; aspect-ratio: 4 / 3"><img loading="lazy" src="/assets/img/photobooth-decor-spirale.jpg" alt="Décor spirale design éclairé en rose" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s"></span>
-<div style="padding: 24px 24px 28px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Signika', sans-serif; font-size: 24px; font-weight: 600">Un décor au choix</h3><p style="margin: 0; color: #46555C; font-weight: 500">Collection d'objets d'époque, spirale design ou photocall personnalisé.</p></div>
+<span style="display: block; overflow: hidden; aspect-ratio: 4 / 3"><img loading="lazy" src="/assets/img/photobooth-retro-decor-vintage.jpg" alt="Coin photo décoré d'objets anciens autour du photobooth rétro" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s"></span>
+<div style="padding: 24px 24px 28px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Signika', sans-serif; font-size: 24px; font-weight: 600">Une décoration pour coin photo</h3><p style="margin: 0; color: #46555C; font-weight: 500">Collection d'objets d'époque, spirale design ou photocall personnalisé : un vrai coin photo qui habille votre lieu. En option.</p></div>
 </article>
 </div>
+</div>
+</section>
+
+<section style="max-width: 1240px; margin: 0 auto; padding: 88px 24px; display: flex; flex-wrap: wrap; gap: 32px">
+<div style="flex: 1 1 440px; min-width: 0; background: #F1F3F4; border-radius: 28px; padding: 36px 32px; display: flex; flex-direction: column; gap: 14px">
+<span style="align-self: flex-start; background: #FFC400; color: #2B2100; border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 700">Fait maison</span>
+<h2 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: clamp(28px, 3vw, 38px); line-height: 1.1">Notre application, décalée et fun</h2>
+<p style="margin: 0; color: #46555C; font-weight: 500; font-size: 18px">Nous avons développé notre propre application pour ce photobooth. Elle guide vos invités avec humour, du décompte au tirage, et rend chaque passage aussi drôle que la photo elle-même.</p>
+</div>
+<div style="flex: 1 1 440px; min-width: 0; background: #1B2A30; color: #ffffff; border-radius: 28px; padding: 36px 32px; display: flex; flex-direction: column; gap: 14px">
+<span style="align-self: flex-start; background: #00B6CC; color: #06262B; border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 700">Après la fête</span>
+<h2 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: clamp(28px, 3vw, 38px); line-height: 1.1">Toutes vos photos, en ligne</h2>
+<p style="margin: 0; color: #D5DCDF; font-weight: 500; font-size: 18px">Les photos vous sont transmises après l'évènement. Une galerie en ligne vous permet, à vous et à vos invités, de les retrouver, de les télécharger et de les réimprimer si besoin.</p>
 </div>
 </section>
 
@@ -110,8 +119,8 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
 <div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
 <h2 style="margin: 0 0 8px; font-family: 'Signika', sans-serif; font-weight: 700; font-size: clamp(28px, 3vw, 38px); line-height: 1.1">Vos questions</h2>
 <details style="background: #F1F3F4; border-radius: 16px; padding: 18px 22px" open><summary style="font-weight: 700; font-size: 18px; min-height: 28px">Qui s'en occupe pendant la soirée ?</summary><p style="margin: 10px 0 0; color: #46555C; font-weight: 500">Nous. L'équipe qui anime votre soirée installe le photobooth, le déplace si besoin et intervient au moindre souci.</p></details>
-<details style="background: #F1F3F4; border-radius: 16px; padding: 18px 22px"><summary style="font-weight: 700; font-size: 18px; min-height: 28px">Le décor est-il compris ?</summary><p style="margin: 10px 0 0; color: #46555C; font-weight: 500">La décoration d'objets d'époque est une option à 140 €.</p></details>
-<details style="background: #F1F3F4; border-radius: 16px; padding: 18px 22px"><summary style="font-weight: 700; font-size: 18px; min-height: 28px">Je veux seulement le photobooth, sans DJ</summary><p style="margin: 10px 0 0; color: #46555C; font-weight: 500">C'est possible sur notre site dédié My Retrobooth, où vous trouverez aussi les modèles 1950 et 1980 et la cabine téléphonique. <a href="https://myretrobooth.com">Aller sur My Retrobooth</a></p></details>
+<details style="background: #F1F3F4; border-radius: 16px; padding: 18px 22px"><summary style="font-weight: 700; font-size: 18px; min-height: 28px">Le décor est-il compris ?</summary><p style="margin: 10px 0 0; color: #46555C; font-weight: 500">Non, la décoration du coin photo est en option : 140 €. Le photobooth seul s'intègre déjà très bien à la plupart des lieux.</p></details>
+<details style="background: #F1F3F4; border-radius: 16px; padding: 18px 22px"><summary style="font-weight: 700; font-size: 18px; min-height: 28px">Réserver ce photobooth sur myretrobooth.com</summary><p style="margin: 10px 0 0; color: #46555C; font-weight: 500">C'est possible sur notre site dédié My Retrobooth, où vous trouverez aussi les modèles 1950 et 1980 et la cabine téléphonique. <a href="https://myretrobooth.com">Aller sur My Retrobooth</a></p></details>
 </div>
 <div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
 <figure style="margin: 0; background: #F1F3F4; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 14px; border-top: 8px solid #FFC400">
@@ -120,7 +129,7 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
 </figure>
 <h2 style="margin: 16px 0 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: 26px; line-height: 1.1">Se marie bien avec</h2>
 <a href="/prestations/mise-en-lumiere-mariage/" style="background: #F1F3F4; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 16px; text-decoration: none; color: #1B2A30"><img loading="lazy" src="/assets/img/facade-chateau-de-champlatreux-illuminee.jpg" alt="" style="width: 96px; height: 72px; object-fit: cover; border-radius: 10px; flex: none"><span style="display: flex; flex-direction: column"><span style="font-family: 'Signika', sans-serif; font-size: 20px; font-weight: 600">Mise en lumière</span><span style="color: #46555C; font-weight: 500; font-size: 15px">Le décor du photobooth en profite aussi.</span></span></a>
-<a href="https://myretrobooth.com" style="background: #F1F3F4; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 16px; text-decoration: none; color: #1B2A30"><img loading="lazy" src="/assets/img/retrophone-livre-d-or-audio.jpg" alt="" style="width: 96px; height: 72px; object-fit: cover; border-radius: 10px; flex: none"><span style="display: flex; flex-direction: column"><span style="font-family: 'Signika', sans-serif; font-size: 20px; font-weight: 600">Rétrophone</span><span style="color: #46555C; font-weight: 500; font-size: 15px">Les photos d'un côté, les messages audio de l'autre.</span></span></a>
+<a href="/prestations/retrophone-livre-d-or-audio/" style="background: #F1F3F4; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 16px; text-decoration: none; color: #1B2A30"><img loading="lazy" src="/assets/img/retrophone-livre-d-or-audio.jpg" alt="" style="width: 96px; height: 72px; object-fit: cover; border-radius: 10px; flex: none"><span style="display: flex; flex-direction: column"><span style="font-family: 'Signika', sans-serif; font-size: 20px; font-weight: 600">Rétrophone</span><span style="color: #46555C; font-weight: 500; font-size: 15px">Les photos d'un côté, les messages audio de l'autre.</span></span></a>
 </div>
 </section>
 
@@ -144,7 +153,6 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
 <a href="https://www.instagram.com/thomas_futureevents/" style="padding: 12px 0">Instagram</a>
 <a href="https://www.facebook.com/future.events-fr" style="padding: 12px 0">Facebook</a>
 <a href="https://www.youtube.com/channel/UCPeseptp86hgipPh1_BLF3g" style="padding: 12px 0">YouTube</a>
-<a href="/tarifs/" style="padding: 12px 0">Tarifs</a>
 <a href="/mentions-legales/" style="padding: 12px 0">Mentions légales</a>
 </div>
 </div>
@@ -209,6 +217,15 @@ html{scroll-padding-top:96px}
 @keyframes fePop{40%{transform:scale(1.25)}100%{transform:scale(1)}}
 .fe-heart b{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;border-radius:999px;background:#D10072;color:#fff;font:700 13px/22px 'Quicksand',sans-serif;text-align:center;padding:0 5px;box-sizing:border-box}
 .fe-heart b:empty{display:none}
+.fe-heart.fe-empty{display:none !important}
+.fe-burger{display:none;width:46px;height:46px;border-radius:50%;border:2px solid #E1E5E7;background:#fff;color:#1B2A30;cursor:pointer;padding:0;align-items:center;justify-content:center}
+.fe-menu{display:none}
+@media (max-width:640px){
+  .fe-burger{display:inline-flex}
+  .fe-menu.fe-open{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:100%;background:#fff;padding:8px 24px 20px;box-shadow:0 14px 24px -12px rgba(6,38,43,.35);z-index:46}
+  .fe-menu a{padding:14px 0;border-bottom:1px solid #E1E5E7;font-weight:700;color:#1B2A30;text-decoration:none;font-size:18px}
+  .fe-menu a:last-child{border-bottom:0}
+}
 .fe-toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);opacity:0;z-index:60;background:#1B2A30;color:#fff;border-radius:999px;padding:12px 20px;font:600 15px 'Quicksand',sans-serif;box-shadow:0 8px 24px rgba(6,38,43,.3);transition:all .3s;pointer-events:none;white-space:nowrap}
 .fe-toast.fe-show{opacity:1;transform:translate(-50%,0)}
 button[data-option].fe-added{background:#D10072 !important;color:#fff !important;border-color:#D10072 !important}
@@ -237,8 +254,30 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
   heart.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg><b></b>';
   if (nav) { var btn = nav.querySelector('.fe-btn'); nav.insertBefore(heart, btn || null); }
   var badge = heart.querySelector('b');
+
+  // Menu dépliable sur mobile
+  var head = document.querySelector('.fe-head');
+  if (nav && head) {
+    var burger = document.createElement('button');
+    burger.type = 'button'; burger.className = 'fe-burger';
+    burger.setAttribute('aria-label', 'Ouvrir le menu'); burger.setAttribute('aria-expanded', 'false');
+    burger.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+    nav.appendChild(burger);
+    var menu = document.createElement('div'); menu.className = 'fe-menu'; menu.id = 'fe-menu';
+    burger.setAttribute('aria-controls', 'fe-menu');
+    nav.querySelectorAll('a.fe-m-hide').forEach(function (a) { var c = a.cloneNode(true); c.className = ''; c.removeAttribute('style'); menu.appendChild(c); });
+    var dv = document.createElement('a'); dv.href = '/#devis'; dv.textContent = 'Demander un devis'; dv.style.color = '#00707E'; menu.appendChild(dv);
+    head.appendChild(menu);
+    burger.addEventListener('click', function () {
+      var open = menu.classList.toggle('fe-open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) { menu.classList.remove('fe-open'); burger.setAttribute('aria-expanded', 'false'); } });
+  }
   function refresh() {
     badge.textContent = list.length ? list.length : '';
+    heart.classList.toggle('fe-empty', !list.length);
     heart.title = list.length ? 'Mes envies : ' + list.join(', ') : 'Ajoutez des options à votre devis';
     document.querySelectorAll('[data-option]').forEach(function (b) {
       var on = list.indexOf(b.getAttribute('data-option')) >= 0;
