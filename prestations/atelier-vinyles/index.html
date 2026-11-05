@@ -64,12 +64,12 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
 <span style="font-weight: 600; color: #46555C"><strong style="font-family: 'Signika', sans-serif; font-size: 28px; color: #1B2A30">490 €</strong> pour la durée d'un temps cocktail</span>
 </div>
 </div>
-<div style="flex: 1 1 520px; min-width: 0; position: relative; border-radius: 32px; overflow: hidden; aspect-ratio: 16 / 10; background: #1B2A30">
+<div data-yt="n9SaIsClSxE" data-yt-title="L'Atelier Vinyles en vidéo" style="flex: 1 1 520px; min-width: 0; position: relative; border-radius: 32px; overflow: hidden; aspect-ratio: 16 / 10; background: #1B2A30">
 <img loading="lazy" src="/assets/img/atelier-vinyles-vin-d-honneur.jpg" alt="Atelier Vinyles installé dans un parc : DJ, amplis Marshall et bacs de disques" style="width: 100%; height: 100%; object-fit: cover; display: block">
-<div style="position: absolute; left: 20px; bottom: 20px; display: flex; align-items: center; gap: 12px; background: #ffffff; border-radius: 999px; padding: 8px 18px 8px 8px; font-size: 14px; font-weight: 700">
+<button type="button" style="position: absolute; left: 20px; bottom: 20px; display: flex; align-items: center; gap: 12px; background: #ffffff; color: #1B2A30; border: 0; cursor: pointer; font: inherit; border-radius: 999px; padding: 8px 18px 8px 8px; font-size: 15px; font-weight: 700">
 <span style="width: 40px; height: 40px; border-radius: 50%; background: #00B6CC; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="#06262B" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></span>
-<span>Emplacement vidéo : le concept en images</span>
-</div>
+<span>Voir le concept en vidéo</span>
+</button>
 </div>
 </section>
 
@@ -315,6 +315,23 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
   document.addEventListener('keydown', function (e) {
     if (!lb.classList.contains('fe-open')) return;
     if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') show(cur - 1); if (e.key === 'ArrowRight') show(cur + 1);
+  });
+})();
+</script>
+<script>
+(function () {
+  document.querySelectorAll('[data-yt]').forEach(function (box) {
+    box.style.cursor = 'pointer';
+    box.addEventListener('click', function () {
+      if (box.querySelector('iframe')) return;
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + box.getAttribute('data-yt') + '?autoplay=1&rel=0&playsinline=1';
+      f.title = box.getAttribute('data-yt-title') || 'Vidéo';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      f.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0';
+      box.appendChild(f);
+    });
   });
 })();
 </script>

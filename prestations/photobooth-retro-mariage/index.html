@@ -319,6 +319,23 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
   });
 })();
 </script>
+<script>
+(function () {
+  document.querySelectorAll('[data-yt]').forEach(function (box) {
+    box.style.cursor = 'pointer';
+    box.addEventListener('click', function () {
+      if (box.querySelector('iframe')) return;
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + box.getAttribute('data-yt') + '?autoplay=1&rel=0&playsinline=1';
+      f.title = box.getAttribute('data-yt-title') || 'Vidéo';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      f.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0';
+      box.appendChild(f);
+    });
+  });
+})();
+</script>
 
 </body>
 </html>

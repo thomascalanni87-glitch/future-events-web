@@ -64,7 +64,7 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
 <section style="display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.15">Hébergeur</h2><p style="margin: 0; color: #46555C; font-weight: 500">Vercel Inc.<br>440 N Barranca Ave #4133, Covina, CA 91723, États-Unis<br>Site : <a href="https://vercel.com">vercel.com</a></p><p style="margin: 0; color: #46555C; font-weight: 500">Le nom de domaine et les adresses e-mail sont gérés par Ligne Web Services (LWS), 2 rue Jules Ferry, 88190 Golbey.</p></section>
 <section style="display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.15">Propriété intellectuelle</h2><p style="margin: 0; color: #46555C; font-weight: 500">Les textes, photos, vidéos, logos et créations présentés sur ce site appartiennent à Future Events ou sont utilisés avec l'accord de leurs auteurs. Toute reproduction, même partielle, est interdite sans autorisation écrite préalable.</p><p style="margin: 0; color: #46555C; font-weight: 500">Les photos prises lors des événements sont publiées avec l'accord des clients concernés. Si vous apparaissez sur une photo et souhaitez son retrait, écrivez-nous : nous la retirons sans délai.</p></section>
 <section style="display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.15">Données personnelles</h2><p style="margin: 0; color: #46555C; font-weight: 500">Le formulaire de demande de devis collecte vos nom, e-mail, téléphone, date et lieu de l'événement, nombre d'invités et message. Ces données servent uniquement à répondre à votre demande et, si vous réservez, à préparer et facturer la prestation. Elles ne sont ni vendues ni cédées.</p><p style="margin: 0; color: #46555C; font-weight: 500">Responsable du traitement : Thomas Nuti, Future Events. Base légale : les mesures précontractuelles prises à votre demande. Durée de conservation : 3 ans après notre dernier échange sans suite, ou la durée légale de conservation des pièces comptables si vous devenez client.</p><p style="margin: 0; color: #46555C; font-weight: 500">Vous disposez d'un droit d'accès, de rectification, d'effacement, d'opposition et de limitation sur vos données. Pour l'exercer, écrivez à <a href="mailto:contact@future-events.fr">contact@future-events.fr</a>. Vous pouvez aussi saisir la CNIL (<a href="https://www.cnil.fr">cnil.fr</a>).</p></section>
-<section style="display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.15">Cookies</h2><p style="margin: 0; color: #46555C; font-weight: 500">Ce site ne dépose aucun cookie publicitaire ni de mesure d'audience. Les liens vers Instagram, Facebook et YouTube ouvrent ces services, qui appliquent leurs propres règles.</p></section>
+<section style="display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.15">Cookies</h2><p style="margin: 0; color: #46555C; font-weight: 500">Ce site ne dépose aucun cookie publicitaire ni de mesure d'audience. Les vidéos YouTube ne se chargent que lorsque vous cliquez sur lecture : YouTube applique alors ses propres règles de confidentialité, comme Instagram et Facebook lorsque vous suivez un lien vers ces services.</p></section>
 <section style="display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.15">Médiation de la consommation</h2><p style="margin: 0; color: #46555C; font-weight: 500">En cas de litige non résolu à l'amiable, vous pouvez recourir gratuitement au médiateur de la consommation : [NOM ET COORDONNÉES DU MÉDIATEUR].</p></section>
 </main>
 
@@ -250,6 +250,23 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
   document.addEventListener('keydown', function (e) {
     if (!lb.classList.contains('fe-open')) return;
     if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') show(cur - 1); if (e.key === 'ArrowRight') show(cur + 1);
+  });
+})();
+</script>
+<script>
+(function () {
+  document.querySelectorAll('[data-yt]').forEach(function (box) {
+    box.style.cursor = 'pointer';
+    box.addEventListener('click', function () {
+      if (box.querySelector('iframe')) return;
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + box.getAttribute('data-yt') + '?autoplay=1&rel=0&playsinline=1';
+      f.title = box.getAttribute('data-yt-title') || 'Vidéo';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      f.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0';
+      box.appendChild(f);
+    });
   });
 })();
 </script>
