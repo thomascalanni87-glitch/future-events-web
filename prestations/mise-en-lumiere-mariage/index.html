@@ -194,6 +194,7 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
 <a href="https://www.instagram.com/thomas_futureevents/" style="padding: 12px 0">Instagram</a>
 <a href="https://www.facebook.com/future.events-fr" style="padding: 12px 0">Facebook</a>
 <a href="https://www.youtube.com/channel/UCPeseptp86hgipPh1_BLF3g" style="padding: 12px 0">YouTube</a>
+<a href="/tarifs/" style="padding: 12px 0">Tarifs</a>
 <a href="/mentions-legales/" style="padding: 12px 0">Mentions légales</a>
 </div>
 </div>
@@ -201,5 +202,33 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
 
 </div>
 
+<a class="fe-sticky fe-btn" href="/#devis">Demander un devis</a>
+<style>
+.fe-sticky{display:none}
+@media (max-width:1024px){
+  .fe-sticky{display:flex;align-items:center;justify-content:center;position:fixed;left:16px;right:16px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:50;min-height:54px;border-radius:999px;font-family:'Quicksand',sans-serif;background:#00B6CC;color:#06262B;font-weight:700;font-size:18px;text-decoration:none;box-shadow:0 8px 24px rgba(6,38,43,.28);transition:transform .25s,opacity .25s}
+  .fe-sticky.fe-off{transform:translateY(140%);opacity:0;pointer-events:none}
+  body{padding-bottom:84px}
+  header .fe-nav .fe-btn{display:none}
+}
+</style>
+<script>
+(function () {
+  var bar = document.querySelector('.fe-sticky');
+  var target = document.getElementById('devis');
+  if (bar && target && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) { bar.classList.toggle('fe-off', e[0].isIntersecting); }, { threshold: 0.15 }).observe(target);
+  }
+  var msg = document.querySelector('#devis textarea[name="message"]');
+  if (!msg) return;
+  document.querySelectorAll('[data-formule]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var f = a.getAttribute('data-formule');
+      msg.value = 'Bonjour, nous sommes très intéressés par la formule ' + f + ' et nous aimerions un premier échange en visio pour en parler. ';
+      setTimeout(function () { msg.focus({ preventScroll: true }); msg.setSelectionRange(msg.value.length, msg.value.length); }, 400);
+    });
+  });
+})();
+</script>
 </body>
 </html>
