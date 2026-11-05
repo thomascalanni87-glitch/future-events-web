@@ -188,9 +188,9 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
     if (!msg) return;
     if (msg.value && msg.value !== auto) return; // le visiteur a écrit lui-même
     var t = 'Bonjour,';
-    if (formule) t += ' nous sommes très intéressés par la formule ' + formule + ' et nous aimerions un premier échange en visio pour en parler.';
+    if (formule) t += ' nous sommes très intéressés par la formule ' + formule + '.';
     if (list.length) t += (formule ? '\n\nNous sommes aussi intéressés par : ' : ' nous sommes intéressés par : ') + list.join(', ') + '.';
-    if (!formule && list.length) t += ' Pourriez-vous nous faire une proposition ?';
+    t += '\n\nNous aimerions un premier rendez-vous en visio pour échanger ensemble sur notre projet.';
     auto = (formule || list.length) ? t + ' ' : '';
     msg.value = auto;
   }

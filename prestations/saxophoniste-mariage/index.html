@@ -111,12 +111,22 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
 <div style="max-width: 1240px; margin: 0 auto; padding: 80px 24px; display: flex; flex-direction: column; gap: 28px">
 <div style="display: flex; flex-direction: column; gap: 10px; max-width: 720px">
 <h2 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.08">David en live</h2>
-<p style="margin: 0; font-size: 19px; color: #46555C; font-weight: 500">On nous demande souvent à quoi ressemble un set. Le mieux est encore de l'écouter.</p>
+<p style="margin: 0; font-size: 19px; color: #46555C; font-weight: 500">On nous demande souvent à quoi ressemble un set. Le mieux est encore de l'écouter : ses vidéos et les avis de ses clients sont sur sa page Linkaband.</p>
 </div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
-<div style="position: relative; border-radius: 20px; aspect-ratio: 16 / 9; background: #C9D0D3; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; font-weight: 700; color: #46555C">[VIDÉO : SET AU VIN D'HONNEUR]</div>
-<div style="position: relative; border-radius: 20px; aspect-ratio: 16 / 9; background: #C9D0D3; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; font-weight: 700; color: #46555C">[VIDÉO : SET EN SOIRÉE AVEC LE DJ]</div>
-<div class="fe-m-hide" style="position: relative; border-radius: 20px; aspect-ratio: 16 / 9; background: #C9D0D3; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; font-weight: 700; color: #46555C">[VIDÉO : CÉRÉMONIE]</div>
+<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: center">
+<figure style="margin: 0; flex: 0 1 380px; min-width: 0; border-radius: 24px; overflow: hidden; aspect-ratio: 4 / 5; background: #1B2A30"><img loading="lazy" src="/assets/img/david-saxophoniste.jpg" alt="David, saxophoniste, chapeau blanc et saxophone doré, sourire aux lèvres pendant un set" style="width: 100%; height: 100%; object-fit: cover; display: block"></figure>
+<div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<p style="margin: 0; font-size: 20px; font-weight: 600; line-height: 1.45">Chapeau blanc, saxophone doré et sourire en coin : David entre dans la salle en jouant, se glisse entre les tables et finit sur la piste avec vos invités.</p>
+<ul style="margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 8px; color: #46555C; font-weight: 500">
+<li>Trente ans de scène, six premiers prix de conservatoire</li>
+<li>Soul, funk, jazz, et les tubes de la soirée joués en live avec le DJ</li>
+<li>Cérémonie, cocktail ou soirée : il s'adapte à chaque moment</li>
+</ul>
+<div style="display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; margin-top: 6px">
+<a class="fe-btn" href="https://linkaband.com/david-laisne" target="_blank" rel="noopener" style="background: #1B2A30; color: #ffffff; padding: 14px 26px; border-radius: 999px; font-weight: 700; text-decoration: none">Écouter David sur Linkaband</a>
+<a href="#devis" data-option="Saxophone ou trompette" style="font-weight: 700; padding: 12px 0">Ajouter à mon devis</a>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -289,9 +299,9 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
     if (!msg) return;
     if (msg.value && msg.value !== auto) return; // le visiteur a écrit lui-même
     var t = 'Bonjour,';
-    if (formule) t += ' nous sommes très intéressés par la formule ' + formule + ' et nous aimerions un premier échange en visio pour en parler.';
+    if (formule) t += ' nous sommes très intéressés par la formule ' + formule + '.';
     if (list.length) t += (formule ? '\n\nNous sommes aussi intéressés par : ' : ' nous sommes intéressés par : ') + list.join(', ') + '.';
-    if (!formule && list.length) t += ' Pourriez-vous nous faire une proposition ?';
+    t += '\n\nNous aimerions un premier rendez-vous en visio pour échanger ensemble sur notre projet.';
     auto = (formule || list.length) ? t + ' ' : '';
     msg.value = auto;
   }

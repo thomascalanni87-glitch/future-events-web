@@ -137,7 +137,7 @@ input:focus-visible,textarea:focus-visible,a:focus-visible,button:focus-visible{
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 24px">
 <a class="fe-card" href="#mariage" style="background: #ffffff; border-radius: 24px; overflow: hidden; text-decoration: none; color: #1B2A30; display: flex; flex-direction: column">
-<span style="display: block; overflow: hidden; aspect-ratio: 4 / 3"><img loading="lazy" src="/assets/img/regie-dj-future-events.jpg" alt="Régie DJ Future Events éclairée en rose avec le logo V" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s"></span>
+<span style="display: block; overflow: hidden; aspect-ratio: 4 / 3"><img loading="lazy" src="/assets/img/dj-piste-de-danse-lyres.jpg" alt="Régie DJ Future Events entre quatre lyres, piste de danse pleine" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s"></span>
 <span style="padding: 22px 24px 26px; display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Signika', sans-serif; font-size: 24px; font-weight: 600">DJ &amp; sonorisation</span><span style="color: #46555C; font-weight: 500">Sans heure de fin, cérémonie et vin d'honneur compris.</span><span class="fe-more" style="margin-top: 8px; font-weight: 700; color: #00707E">Voir les formules <span aria-hidden="true">→</span></span></span>
 </a>
 <a class="fe-card" href="/prestations/mise-en-lumiere-mariage/" style="background: #ffffff; border-radius: 24px; overflow: hidden; text-decoration: none; color: #1B2A30; display: flex; flex-direction: column">
@@ -174,8 +174,9 @@ input:focus-visible,textarea:focus-visible,a:focus-visible,button:focus-visible{
 
 <section id="mariage" style="max-width: 1240px; margin: 0 auto; padding: 88px 24px; position: relative; z-index: 0; display: flex; flex-direction: column; gap: 40px">
 <div style="display: flex; flex-direction: column; gap: 12px; max-width: 720px">
-<h2 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: clamp(32px, 3.6vw, 48px); line-height: 1.08">Cinq formules, ou la vôtre</h2>
-<p style="margin: 0; font-size: 19px; color: #46555C; font-weight: 500">Tout est au forfait, sans heure de fin et sans heures supplémentaires.</p>
+<h2 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: clamp(32px, 3.6vw, 48px); line-height: 1.08">Des packs avantageux, ou votre formule à la carte</h2>
+<p style="margin: 0; font-size: 19px; color: #46555C; font-weight: 500">Nos packs regroupent les prestations les plus demandées à un prix plus doux qu'au détail. Tout est au forfait, sans heure de fin et sans heures supplémentaires.</p>
+<p style="margin: 0; font-size: 17px; color: #1B2A30; font-weight: 600">Vous préférez composer votre formule à la carte ? Ajoutez les prestations qui vous plaisent avec le <span style="color: #D10072">♥</span>, ou <a href="/tarifs/">consultez tous les tarifs des options</a>.</p>
 </div>
 <h3 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: 26px; display: flex; align-items: center; gap: 12px"><span style="width: 14px; height: 14px; border-radius: 50%; background: #D10072"></span>Mariages</h3>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 262px), 1fr)); gap: 32px 20px; align-items: stretch; margin-top: -16px">
@@ -246,7 +247,7 @@ input:focus-visible,textarea:focus-visible,a:focus-visible,button:focus-visible{
 <div style="max-width: 1240px; margin: 0 auto; padding: 88px 24px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
 <div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
 <h2 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: clamp(32px, 3.6vw, 48px); line-height: 1.08">Nous connaissons sûrement déjà votre lieu de réception</h2>
-<p style="margin: 0; font-size: 19px; color: #46555C; font-weight: 500">Chaque domaine a ses volumes, ses contraintes et ses plus beaux angles. Découvrez ce que nous y avons déjà installé.</p>
+<p style="margin: 0; font-size: 19px; color: #46555C; font-weight: 500">Chaque domaine a ses volumes, ses contraintes et ses plus beaux angles. Découvrez comment nous avons exploité les lieux.</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px; font-weight: 700; font-size: 15px">
 <a href="#lieux" style="background: #ffffff; border-radius: 999px; padding: 10px 16px; text-decoration: none; color: #1B2A30">Manoir de Marcq</a>
 <a href="#lieux" style="background: #ffffff; border-radius: 999px; padding: 10px 16px; text-decoration: none; color: #1B2A30">Ferme des Templiers</a>
@@ -477,9 +478,9 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
     if (!msg) return;
     if (msg.value && msg.value !== auto) return; // le visiteur a écrit lui-même
     var t = 'Bonjour,';
-    if (formule) t += ' nous sommes très intéressés par la formule ' + formule + ' et nous aimerions un premier échange en visio pour en parler.';
+    if (formule) t += ' nous sommes très intéressés par la formule ' + formule + '.';
     if (list.length) t += (formule ? '\n\nNous sommes aussi intéressés par : ' : ' nous sommes intéressés par : ') + list.join(', ') + '.';
-    if (!formule && list.length) t += ' Pourriez-vous nous faire une proposition ?';
+    t += '\n\nNous aimerions un premier rendez-vous en visio pour échanger ensemble sur notre projet.';
     auto = (formule || list.length) ? t + ' ' : '';
     msg.value = auto;
   }
