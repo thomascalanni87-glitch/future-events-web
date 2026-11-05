@@ -172,15 +172,6 @@ a:focus-visible,summary:focus-visible{outline:3px solid #1B2A30;outline-offset:2
   if (bar && target && 'IntersectionObserver' in window) {
     new IntersectionObserver(function (e) { bar.classList.toggle('fe-off', e[0].isIntersecting); }, { threshold: 0.15 }).observe(target);
   }
-  var msg = document.querySelector('#devis textarea[name="message"]');
-  if (!msg) return;
-  document.querySelectorAll('[data-formule]').forEach(function (a) {
-    a.addEventListener('click', function () {
-      var f = a.getAttribute('data-formule');
-      msg.value = 'Bonjour, nous sommes très intéressés par la formule ' + f + ' et nous aimerions un premier échange en visio pour en parler. ';
-      setTimeout(function () { msg.focus({ preventScroll: true }); msg.setSelectionRange(msg.value.length, msg.value.length); }, 400);
-    });
-  });
 })();
 </script>
 <style>
@@ -214,5 +205,116 @@ html{scroll-padding-top:96px}
   map.forEach(function (m) { obs.observe(m.sec); });
 })();
 </script>
+<style>
+.fe-heart{position:relative;display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;border:2px solid #E1E5E7;background:#ffffff;color:#D10072 !important;cursor:pointer;padding:0;transition:transform .2s;box-shadow:none !important}
+.fe-heart:hover{border-color:#D10072}
+.fe-heart.fe-pop{animation:fePop .45s}
+@keyframes fePop{40%{transform:scale(1.25)}100%{transform:scale(1)}}
+.fe-heart b{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;border-radius:999px;background:#D10072;color:#fff;font:700 13px/22px 'Quicksand',sans-serif;text-align:center;padding:0 5px;box-sizing:border-box}
+.fe-heart b:empty{display:none}
+.fe-toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);opacity:0;z-index:60;background:#1B2A30;color:#fff;border-radius:999px;padding:12px 20px;font:600 15px 'Quicksand',sans-serif;box-shadow:0 8px 24px rgba(6,38,43,.3);transition:all .3s;pointer-events:none;white-space:nowrap}
+.fe-toast.fe-show{opacity:1;transform:translate(-50%,0)}
+[data-option].fe-added{background:#1B2A30 !important;color:#fff !important;border-color:#1B2A30 !important}
+.fe-lb{position:fixed;inset:0;z-index:70;background:rgba(6,20,24,.94);display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:16px;box-sizing:border-box}
+.fe-lb.fe-open{display:flex}
+.fe-lb img{max-width:100%;max-height:calc(100vh - 120px);border-radius:12px;object-fit:contain}
+.fe-lb p{margin:0;color:#fff;font:600 16px 'Quicksand',sans-serif;text-align:center}
+.fe-lb button{position:absolute;width:52px;height:52px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:26px;cursor:pointer}
+.fe-lb .fe-x{top:16px;right:16px}.fe-lb .fe-prev{left:16px;top:50%}.fe-lb .fe-next{right:16px;top:50%}
+[data-cat] img{cursor:zoom-in}
+</style>
+<script>
+(function () {
+  var KEY = 'fe-envies', list = [];
+  try { list = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) {}
+  if (location.pathname.indexOf('/merci') === 0) { list = []; try { localStorage.removeItem(KEY); } catch (e) {} }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {} }
+
+  // Cœur dans le menu
+  var nav = document.querySelector('.fe-head .fe-nav');
+  var heart = document.createElement('a');
+  heart.className = 'fe-heart'; heart.href = '/#devis';
+  heart.setAttribute('aria-label', 'Mes envies pour le devis');
+  heart.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg><b></b>';
+  if (nav) { var btn = nav.querySelector('.fe-btn'); nav.insertBefore(heart, btn || null); }
+  var badge = heart.querySelector('b');
+  function refresh() {
+    badge.textContent = list.length ? list.length : '';
+    heart.title = list.length ? 'Mes envies : ' + list.join(', ') : 'Ajoutez des options à votre devis';
+    document.querySelectorAll('[data-option]').forEach(function (b) {
+      if (b.tagName === 'BUTTON') b.classList.toggle('fe-added', list.indexOf(b.getAttribute('data-option')) >= 0);
+    });
+  }
+  var toast = document.createElement('div'); toast.className = 'fe-toast'; toast.setAttribute('role', 'status'); document.body.appendChild(toast);
+  var tt;
+  function say(t) { toast.textContent = t; toast.classList.add('fe-show'); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('fe-show'); }, 2200); }
+
+  var formule = '';
+  var msg = document.querySelector('#devis textarea[name="message"]');
+  var auto = '';
+  function compose() {
+    if (!msg) return;
+    if (msg.value && msg.value !== auto) return; // le visiteur a écrit lui-même
+    var t = 'Bonjour,';
+    if (formule) t += ' nous sommes très intéressés par la formule ' + formule + ' et nous aimerions un premier échange en visio pour en parler.';
+    if (list.length) t += (formule ? '\n\nNous sommes aussi intéressés par : ' : ' nous sommes intéressés par : ') + list.join(', ') + '.';
+    if (!formule && list.length) t += ' Pourriez-vous nous faire une proposition ?';
+    auto = (formule || list.length) ? t + ' ' : '';
+    msg.value = auto;
+  }
+
+  document.addEventListener('click', function (ev) {
+    var el = ev.target.closest('[data-option]');
+    if (el) {
+      ev.preventDefault();
+      var o = el.getAttribute('data-option');
+      var i = list.indexOf(o);
+      if (i >= 0 && el.tagName === 'BUTTON') { list.splice(i, 1); say('Retiré de vos envies'); }
+      else if (i < 0) { list.push(o); say('❤ Ajouté à votre devis : ' + o); }
+      else { say('Déjà dans vos envies ❤'); }
+      save(); refresh(); compose();
+      heart.classList.remove('fe-pop'); void heart.offsetWidth; heart.classList.add('fe-pop');
+      return;
+    }
+    var f = ev.target.closest('[data-formule]');
+    if (f) {
+      formule = f.getAttribute('data-formule'); compose();
+      setTimeout(function () { if (msg) { msg.focus({ preventScroll: true }); msg.setSelectionRange(msg.value.length, msg.value.length); } }, 400);
+    }
+  });
+  refresh();
+  if (msg && list.length) compose();
+
+  // Galerie : filtre depuis l'adresse (?f=mobilier) et photo en grand
+  var q = (location.search.match(/[?&]f=([a-z]+)/) || [])[1];
+  if (q) { var chip = document.querySelector('[data-filter="' + q + '"]'); if (chip) chip.click(); }
+  var figs = Array.prototype.slice.call(document.querySelectorAll('[data-cat]'));
+  if (!figs.length) return;
+  var lb = document.createElement('div'); lb.className = 'fe-lb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true');
+  lb.innerHTML = '<img alt=""><p></p><button class="fe-x" aria-label="Fermer">×</button><button class="fe-prev" aria-label="Photo précédente">‹</button><button class="fe-next" aria-label="Photo suivante">›</button>';
+  document.body.appendChild(lb);
+  var big = lb.querySelector('img'), cap = lb.querySelector('p'), cur = 0;
+  function visible() { return figs.filter(function (f) { return !f.hidden && f.querySelector('img'); }); }
+  function show(k) {
+    var v = visible(); if (!v.length) return;
+    cur = (k + v.length) % v.length;
+    var im = v[cur].querySelector('img');
+    big.src = im.src; big.alt = im.alt;
+    cap.textContent = Array.prototype.map.call(v[cur].querySelectorAll('figcaption span'), function (s) { return s.textContent; }).join(' · ');
+    lb.classList.add('fe-open'); document.body.style.overflow = 'hidden';
+  }
+  function close() { lb.classList.remove('fe-open'); document.body.style.overflow = ''; }
+  figs.forEach(function (f) { var im = f.querySelector('img'); if (im) im.addEventListener('click', function () { show(visible().indexOf(f)); }); });
+  lb.querySelector('.fe-x').onclick = close;
+  lb.querySelector('.fe-prev').onclick = function (e) { e.stopPropagation(); show(cur - 1); };
+  lb.querySelector('.fe-next').onclick = function (e) { e.stopPropagation(); show(cur + 1); };
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('fe-open')) return;
+    if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') show(cur - 1); if (e.key === 'ArrowRight') show(cur + 1);
+  });
+})();
+</script>
+
 </body>
 </html>
