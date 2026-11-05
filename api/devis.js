@@ -81,6 +81,22 @@ ${tel ? '<td width="12" style="width:12px"></td>' + bouton(`tel:${tel}`, 'Appele
 </td></tr></table></body></html>`;
 }
 
+function estSpam(f) {
+  if (f.site_web) return true;                                   // champ piège rempli
+  const t = Number(f.fe_t || 0);                                 // horodatage posé par le navigateur
+  const age = Date.now() - t;
+  if (!t || age < 4000 || age > 2 * 24 * 3600 * 1000) return true; // pas de JavaScript, ou envoyé en moins de 4 s
+  const tout = [f.nom, f.message, f.lieu, f.telephone].join(' ');
+  const liens = (tout.match(/https?:\/\/|www\.|\.(ru|cn|xyz|top|click)\b/gi) || []).length;
+  if (liens >= 1 && /https?:\/\/|www\./i.test(String(f.nom || '') + String(f.lieu || ''))) return true;
+  if (liens >= 2) return true;                                   // plusieurs liens = publicité
+  if (/[\u0400-\u04FF\u4E00-\u9FFF\u0E00-\u0E7F]/.test(tout)) return true; // cyrillique, chinois, thaï
+  if (/\b(seo|backlinks?|crypto|bitcoin|casino|viagra|loan|rank(ing)? your|guest post|web ?design services?)\b/i.test(tout)) return true;
+  const msg = String(f.message || '');
+  if (msg.length > 40 && !/[àâçéèêëîïôûùüœ]/i.test(msg) && /\b(the|your|you|we|our|business|website)\b/i.test(msg) && !/\b(le|la|les|nous|vous|mariage|soirée)\b/i.test(msg)) return true; // message entièrement en anglais commercial
+  return false;
+}
+
 function rediriger(res, url) {
   res.statusCode = 303;
   res.setHeader('Location', url);
@@ -92,7 +108,8 @@ module.exports = async (req, res) => {
   let f;
   try { f = await lire(req); } catch { return rediriger(res, PAGE_ERREUR); }
 
-  if (f.site_web) return rediriger(res, PAGE_MERCI); // piège à robots
+  // Anti-spam, invisible pour les vrais visiteurs : on fait comme si tout allait bien
+  if (estSpam(f)) { console.log('Spam bloqué :', court(f.email, 80)); return rediriger(res, PAGE_MERCI); }
 
   const nom = court(f.nom, 120);
   const email = court(f.email, 160);

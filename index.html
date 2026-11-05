@@ -177,7 +177,8 @@ input:focus-visible,textarea:focus-visible,a:focus-visible,button:focus-visible{
 <h2 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: clamp(32px, 3.6vw, 48px); line-height: 1.08">Cinq formules, ou la vôtre</h2>
 <p style="margin: 0; font-size: 19px; color: #46555C; font-weight: 500">Tout est au forfait, sans heure de fin et sans heures supplémentaires.</p>
 </div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 32px 24px; align-items: stretch">
+<h3 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: 26px; display: flex; align-items: center; gap: 12px"><span style="width: 14px; height: 14px; border-radius: 50%; background: #D10072"></span>Mariages</h3>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 262px), 1fr)); gap: 32px 20px; align-items: stretch; margin-top: -16px">
 <div style="border: 2px solid #E1E5E7; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 16px; position: relative">
 <h3 style="margin: 0; font-family: 'Signika', sans-serif; font-size: 28px; font-weight: 600">Essentiel</h3>
 <div style="font-family: 'Signika', sans-serif; font-weight: 700; font-size: 40px; line-height: 1">1 490 €<span style="font-family: 'Quicksand', sans-serif; font-size: 15px; font-weight: 600; color: #46555C"> à partir de</span></div>
@@ -207,6 +208,9 @@ input:focus-visible,textarea:focus-visible,a:focus-visible,button:focus-visible{
 <ul style="margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 8px; font-weight: 500; color: #46555C"><li>Toute la Performance</li><li>Façade ou jardin mis en lumière</li><li>Étincelles froides et fumée lourde pour l'ouverture de bal</li><li>Le grand jeu, du cocktail à la dernière danse</li></ul>
 <a href="#devis" data-formule="Grand Soir" style="margin-top: auto; padding: 14px 0; font-weight: 700">Demander cette formule</a>
 </div>
+</div>
+<h3 style="margin: 0; font-family: 'Signika', sans-serif; font-weight: 700; font-size: 26px; display: flex; align-items: center; gap: 12px; margin-top: 16px"><span style="width: 14px; height: 14px; border-radius: 50%; background: #5B2BD9"></span>Entreprises <span style="font-family: 'Quicksand', sans-serif; font-size: 17px; font-weight: 600; color: #46555C">et sur mesure pour tous</span></h3>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 262px), 1fr)); gap: 32px 20px; align-items: stretch; margin-top: -16px">
 <div id="entreprise" style="border: 2px solid #E1E5E7; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 16px; position: relative">
 <h3 style="margin: 0; font-family: 'Signika', sans-serif; font-size: 28px; font-weight: 600">Afterwork &amp; Entreprise</h3>
 <div style="font-family: 'Signika', sans-serif; font-weight: 700; font-size: 40px; line-height: 1">2 390 €<span style="font-family: 'Quicksand', sans-serif; font-size: 15px; font-weight: 600; color: #46555C"> à partir de</span></div>
@@ -327,6 +331,7 @@ input:focus-visible,textarea:focus-visible,a:focus-visible,button:focus-visible{
 <label style="display: flex; flex-direction: column; gap: 6px; font-weight: 700; font-size: 15px">Nombre d'invités<input type="number" name="invites" placeholder="120" style="font: inherit; font-weight: 500; padding: 12px 14px; border: 2px solid #C9D0D3; border-radius: 12px; min-height: 48px; box-sizing: border-box"></label>
 <label style="display: flex; flex-direction: column; gap: 6px; font-weight: 700; font-size: 15px">Votre e-mail<input type="email" name="email" autocomplete="email" required placeholder="vous@exemple.fr" style="font: inherit; font-weight: 500; padding: 12px 14px; border: 2px solid #C9D0D3; border-radius: 12px; min-height: 48px; box-sizing: border-box"></label>
 <label style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 6px; font-weight: 700; font-size: 15px">Votre projet et vos attentes<textarea name="message" rows="4" required minlength="10" placeholder="Ambiance souhaitée, prestations qui vous intéressent, questions…" style="font: inherit; font-weight: 500; padding: 12px 14px; border: 2px solid #C9D0D3; border-radius: 12px; box-sizing: border-box; resize: vertical"></textarea></label>
+<input type="hidden" name="fe_t" value="">
 <input type="text" name="site_web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px">
 <button class="fe-btn" type="submit" style="grid-column: 1 / -1; font: inherit; font-weight: 700; font-size: 18px; background: #1B2A30; color: #ffffff; border: 0; border-radius: 999px; padding: 16px 24px; cursor: pointer">Recevoir mon devis</button>
 <p style="grid-column: 1 / -1; margin: 0; font-size: 13px; font-weight: 500; color: #46555C">Vos informations servent uniquement à répondre à votre demande. <a href="/mentions-legales/">En savoir plus</a></p>
@@ -546,6 +551,9 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
     });
   });
 })();
+</script>
+<script>
+(function () { var t = document.querySelector('input[name="fe_t"]'); if (t) t.value = String(Date.now()); })();
 </script>
 
 </body>
