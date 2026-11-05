@@ -280,6 +280,7 @@ html{scroll-padding-top:96px}
 .fe-done h3{margin:0;font-family:'Signika',sans-serif;font-size:30px;line-height:1.1}
 .fe-done p{margin:0;color:#46555C;font-weight:500;font-size:18px}
 .fe-done-ico{width:64px;height:64px;border-radius:50%;background:#00B6CC;color:#06262B;font:700 30px/64px sans-serif}
+[data-formule].fe-added::before{content:"♥ ";color:#D10072}
 .fe-burger{display:none;width:46px;height:46px;border-radius:50%;border:2px solid #E1E5E7;background:#fff;color:#1B2A30;cursor:pointer;padding:0;align-items:center;justify-content:center}
 .fe-menu{display:none}
 @media (max-width:640px){
@@ -305,8 +306,10 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
 (function () {
   var KEY = 'fe-envies', list = [];
   try { list = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) {}
-  if (location.pathname.indexOf('/merci') === 0) { list = []; try { localStorage.removeItem(KEY); } catch (e) {} }
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {} }
+  var formule = '';
+  try { formule = localStorage.getItem('fe-formule') || ''; } catch (e) {}
+  if (location.pathname.indexOf('/merci') === 0) { list = []; formule = ''; try { localStorage.removeItem(KEY); localStorage.removeItem('fe-formule'); } catch (e) {} }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(list)); if (formule) localStorage.setItem('fe-formule', formule); else localStorage.removeItem('fe-formule'); } catch (e) {} }
 
   // Cœur dans le menu
   var nav = document.querySelector('.fe-head .fe-nav');
@@ -338,9 +341,11 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
     menu.addEventListener('click', function (e) { if (e.target.closest('a')) { menu.classList.remove('fe-open'); burger.setAttribute('aria-expanded', 'false'); } });
   }
   function refresh() {
-    badge.textContent = list.length ? list.length : '';
-    heart.classList.toggle('fe-empty', !list.length);
-    heart.title = list.length ? 'Mes envies : ' + list.join(', ') : 'Ajoutez des options à votre devis';
+    var n = list.length + (formule ? 1 : 0);
+    badge.textContent = n ? n : '';
+    heart.classList.toggle('fe-empty', !n);
+    heart.title = n ? 'Mon devis : ' + (formule ? 'formule ' + formule + (list.length ? ', ' : '') : '') + list.join(', ') : 'Ajoutez des options à votre devis';
+    document.querySelectorAll('[data-formule]').forEach(function (f) { f.classList.toggle('fe-added', f.getAttribute('data-formule') === formule); });
     document.querySelectorAll('[data-option]').forEach(function (b) {
       var on = list.indexOf(b.getAttribute('data-option')) >= 0;
       b.classList.toggle('fe-added', on);
@@ -355,7 +360,6 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
   var tt;
   function say(t) { toast.textContent = t; toast.classList.add('fe-show'); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('fe-show'); }, 2200); }
 
-  var formule = '';
   var msg = document.querySelector('#devis textarea[name="message"]');
   var auto = '';
   function compose() {
@@ -383,7 +387,10 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
     }
     var f = ev.target.closest('[data-formule]');
     if (f) {
-      formule = f.getAttribute('data-formule'); compose(); refresh();
+      var nf = f.getAttribute('data-formule');
+      if (nf !== formule) say('♥ Formule ' + nf + ' ajoutée à votre devis');
+      formule = nf; save(); compose(); refresh();
+      heart.classList.remove('fe-pop'); void heart.offsetWidth; heart.classList.add('fe-pop');
       setTimeout(function () { if (msg) { msg.focus({ preventScroll: true }); msg.setSelectionRange(msg.value.length, msg.value.length); } }, 400);
     }
   });
@@ -444,7 +451,7 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
   var baseRefresh = refresh;
   refresh = function () { baseRefresh(); if (reset) reset.hidden = !(list.length || formule); };
   refresh();
-  if (msg && list.length) compose();
+  if (msg && (list.length || formule)) compose();
 
   // Galerie : filtre depuis l'adresse (?f=mobilier) et photo en grand
   var q = (location.search.match(/[?&]f=([a-z]+)/) || [])[1];
