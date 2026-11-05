@@ -1,0 +1,47 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/mariage/:path*",
+      "destination": "/#mariage",
+      "permanent": true
+    },
+    {
+      "source": "/entreprise/:path*",
+      "destination": "/#entreprise",
+      "permanent": true
+    },
+    {
+      "source": "/mobilier/:path*",
+      "destination": "/galerie/",
+      "permanent": true
+    },
+    {
+      "source": "/medias/:path*",
+      "destination": "/galerie/",
+      "permanent": true
+    },
+    {
+      "source": "/contact/:path*",
+      "destination": "/#devis",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
+        }
+      ]
+    }
+  ]
+}
