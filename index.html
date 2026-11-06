@@ -183,7 +183,7 @@ input:focus-visible,textarea:focus-visible,a:focus-visible,button:focus-visible{
 <div style="border: 2px solid #E1E5E7; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 16px; position: relative">
 <h3 style="margin: 0; font-family: 'Signika', sans-serif; font-size: 28px; font-weight: 600">Essentiel</h3>
 <div style="font-family: 'Signika', sans-serif; font-weight: 700; font-size: 40px; line-height: 1">1 490 €<span style="font-family: 'Quicksand', sans-serif; font-size: 15px; font-weight: 600; color: #46555C"> à partir de</span></div>
-<ul style="margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 8px; font-weight: 500; color: #46555C"><li>DJ du vin d'honneur à la fin de soirée</li><li>Une playlist à votre image</li><li>Son, lumières et brume adaptés au lieu</li><li>Sonorisation de la cérémonie</li><li>Micros, écran, coaching de vos animations</li></ul>
+<ul style="margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 8px; font-weight: 500; color: #46555C"><li>DJ présent du vin d'honneur jusqu'à la fin de soirée</li><li>Une playlist à votre image</li><li>Installation son et lumière adaptée au lieu</li><li>Sonorisation cérémonie et cocktail / vin d'honneur incluse</li><li>Micros, écran, coaching de vos animations</li></ul>
 <a href="#devis" data-formule="Essentiel" style="margin-top: auto; padding: 14px 0; font-weight: 700">Demander cette formule</a>
 </div>
 <div style="background: #1B2A30; color: #ffffff; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 16px; position: relative">
@@ -198,7 +198,7 @@ input:focus-visible,textarea:focus-visible,a:focus-visible,button:focus-visible{
 <h3 style="margin: 0; font-family: 'Signika', sans-serif; font-size: 28px; font-weight: 600">Performance</h3>
 <div style="font-family: 'Signika', sans-serif; font-weight: 700; font-size: 40px; line-height: 1">2 490 €</div>
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: -6px"><s style="font-weight: 600; color: #46555C">2 870 € au détail</s><span style="background: #FFC400; color: #2B2100; border-radius: 999px; padding: 4px 12px; font-size: 14px; font-weight: 700">380 € d'économie</span></div>
-<ul style="margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 8px; font-weight: 500; color: #46555C"><li><strong>Tout l'Essentiel</strong></li><li>Mise en lumière intérieure de la salle</li><li>Au vin d'honneur : Atelier Vinyles, saxophone ou trompette</li><li>Photobooth rétro avec son décor vintage</li></ul>
+<ul style="margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 8px; font-weight: 500; color: #46555C"><li><strong>Tout l'Essentiel</strong></li><li>Mise en lumière intérieure de la salle</li><li>Au vin d'honneur : Atelier Vinyles, saxophone ou trompette</li><li>Photobooth rétro + son décor vintage</li></ul>
 <a href="#devis" data-formule="Performance" style="margin-top: auto; padding: 14px 0; font-weight: 700">Demander cette formule</a>
 </div>
 <div style="border: 2px solid #D10072; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 16px; position: relative">
@@ -496,7 +496,13 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
     heart.title = n ? 'Mon devis : ' + (formule ? 'formule ' + formule + (list.length ? ', ' : '') : '') + list.join(', ') : 'Ajoutez des options à votre devis';
     document.querySelectorAll('[data-formule]').forEach(function (f) { f.classList.toggle('fe-added', f.getAttribute('data-formule') === formule); });
     document.querySelectorAll('[data-option]').forEach(function (b) {
-      var on = list.indexOf(b.getAttribute('data-option')) >= 0;
+      var op = b.getAttribute('data-option');
+      var on = list.some(function (x) { return x === op || (b.getAttribute('data-qty') && x.indexOf(op + ' (') === 0); });
+      if (on && b.getAttribute('data-qty')) {
+        var cur = list.filter(function (x) { return x.indexOf(op + ' (') === 0; })[0];
+        var mm = cur && cur.match(/×(\d+)/), inp2 = document.getElementById(b.getAttribute('data-qty'));
+        if (mm && inp2 && document.activeElement !== inp2) inp2.value = mm[1];
+      }
       b.classList.toggle('fe-added', on);
       b.setAttribute('aria-pressed', on ? 'true' : 'false');
       if (b.tagName === 'BUTTON') { b.textContent = on ? '♥' : '+'; b.title = on ? 'Retirer de mon devis' : 'Ajouter à mon devis'; return; }
@@ -527,6 +533,19 @@ a.fe-card[data-option].fe-added .fe-more{color:#D10072 !important}
     if (el) {
       ev.preventDefault();
       var o = el.getAttribute('data-option');
+      var qid = el.getAttribute('data-qty');
+      if (qid) {
+        var inp = document.getElementById(qid), q = Math.max(1, Math.min(999, parseInt(inp && inp.value, 10) || 0));
+        var unit = Number(el.getAttribute('data-unit') || 0);
+        var idx = -1; list.forEach(function (x, n) { if (x === o || x.indexOf(o + ' (') === 0) idx = n; });
+        var label = o + ' (×' + q + (unit ? ', ' + (q * unit) + ' €' : '') + ')';
+        if (idx >= 0 && list[idx] === label) { list.splice(idx, 1); say('Retiré de votre devis : ' + o); }
+        else if (idx >= 0) { list[idx] = label; say('♥ Quantité mise à jour : ' + label); }
+        else { list.push(label); say('♥ Ajouté à votre devis : ' + label); }
+        save(); refresh(); compose();
+        heart.classList.remove('fe-pop'); void heart.offsetWidth; heart.classList.add('fe-pop');
+        return;
+      }
       var i = list.indexOf(o);
       if (i >= 0) { list.splice(i, 1); say('Retiré de votre devis : ' + o); }
       else { list.push(o); say('♥ Ajouté à votre devis : ' + o); }
